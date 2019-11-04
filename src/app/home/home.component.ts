@@ -23,7 +23,6 @@ export class HomeComponent implements OnInit {
         //console.log('a função resolver() foi resolvida depois de 3 segundos')
         this.ofertas = ofertas }
       )
-
       .catch(( param: any ) => { 
         console.log(param) })
   }
