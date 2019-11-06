@@ -13,10 +13,9 @@ import { Oferta } from '../shared/oferta.model'
 })
 export class TopoComponent implements OnInit {
 
-  private subjectPesquisa: Subject<string> = new Subject<string>()
+  private subjectPesquisa: Subject<string> = new Subject<string>() //é um proxy
 
   public ofertas: Observable<Oferta[]>
-  public ofertas2: Oferta[]
 
   constructor(private ofertasService: OfertasService) { }
 
@@ -25,7 +24,6 @@ export class TopoComponent implements OnInit {
       .pipe(debounceTime(1000)) //executa a ação do switchMap após 1 segundo)
       .pipe(distinctUntilChanged())
       .pipe(switchMap((termo: string) => {
-        console.log('requisição http para api')
 
         if(termo.trim() === '') {
           //retornar um observable de array de ofertas vazio
@@ -35,13 +33,8 @@ export class TopoComponent implements OnInit {
         return this.ofertasService.pesquisaOfertas(termo)
       }))
       .pipe(catchError((err: any) => {
-        console.log(err)
         return of<(Oferta[])>([])
       }))
-    
-    this.ofertas.subscribe((ofertas: Oferta[]) => {
-      this.ofertas2 = ofertas
-    })
   }
 
   /*
@@ -51,8 +44,11 @@ export class TopoComponent implements OnInit {
   */
 
   public pesquisa(termoDaBusca: string): void {
-    console.log('keyup caracter: ', termoDaBusca)
     this.subjectPesquisa.next(termoDaBusca)
+  }
+
+  public limpaPesquisa(): void {
+    this.subjectPesquisa.next('')
   }
 
 }
