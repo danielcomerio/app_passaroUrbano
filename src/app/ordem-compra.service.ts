@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core'
-import { Http, RequestOptions, Headers } from '@angular/http'
+import { Http, RequestOptions, Headers, Response } from '@angular/http'
 import { Pedido } from './shared/pedido.model'
 import { Observable } from 'rxjs'
+import { map } from 'rxjs/operators';
 
 import { URL_API } from './app.api'
 
@@ -11,7 +12,7 @@ export class OrdemCompraService {
 
     constructor(private http: Http) {}
 
-    public efetivarCompra(pedido: Pedido): Observable<any> {
+    public efetivarCompra(pedido: Pedido): Observable<number> {
         
         let headers: Headers = new Headers()
 
@@ -22,6 +23,7 @@ export class OrdemCompraService {
             JSON.stringify(pedido),
             new RequestOptions({ headers: headers })
         )
+        .pipe(map((resposta: Response) => resposta.json().id))
     }
 
 }
