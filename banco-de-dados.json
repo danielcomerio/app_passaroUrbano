@@ -290,6 +290,77 @@
       "complemento": "wewew",
       "formaPagamento": "debito",
       "id": 15
+    },
+    {
+      "endereco": "Lá em casa",
+      "numero": "10",
+      "complemento": "apto 102",
+      "formaPagamento": "dinheiro",
+      "id": 16
+    },
+    {
+      "endereco": "asassd",
+      "numero": "fdf",
+      "complemento": "dfdf",
+      "formaPagamento": "debito",
+      "id": 17
+    },
+    {
+      "endereco": "sdsds",
+      "numero": "sdsd",
+      "complemento": "sdsd",
+      "formaPagamento": "debito",
+      "itens": [
+        {
+          "id": 4,
+          "img": {
+            "url": "/assets/ofertas/4/img1.jpg"
+          },
+          "titulo": "Estância das águas",
+          "descricao_oferta": "Diversão garantida com piscinas, trilhas e muito mais.",
+          "valor": 31.9,
+          "quantidade": 2
+        }
+      ],
+      "id": 18
+    },
+    {
+      "endereco": "dwede",
+      "numero": "dede",
+      "complemento": "ded",
+      "formaPagamento": "dinheiro",
+      "itens": [
+        {
+          "id": 2,
+          "img": {
+            "url": "/assets/ofertas/2/img1.jpg"
+          },
+          "titulo": "Cozinha Mexicana",
+          "descricao_oferta": "Almoço ou Jantar com Rodízio Mexicano delicioso.",
+          "valor": 32.9,
+          "quantidade": 2
+        }
+      ],
+      "id": 19
+    },
+    {
+      "endereco": "ddddddd",
+      "numero": "ddd",
+      "complemento": "dddd",
+      "formaPagamento": "dinheiro",
+      "itens": [
+        {
+          "id": 1,
+          "img": {
+            "url": "/assets/ofertas/1/img1.jpg"
+          },
+          "titulo": "Super Burger",
+          "descricao_oferta": "Rodízio de Mini-hambúrger com opção de entrada.",
+          "valor": 29.9,
+          "quantidade": 3
+        }
+      ],
+      "id": 20
     }
   ]
 }

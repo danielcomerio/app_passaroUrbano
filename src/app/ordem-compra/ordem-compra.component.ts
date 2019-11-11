@@ -3,6 +3,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms'
 import { OrdemCompraService } from '../ordem-compra.service'
 import { Pedido } from '../shared/pedido.model'
 import { CarrinhoService } from '../carrinho.service'
+import { ItemCarrinho } from '../shared/item-carrinho.model';
 
 @Component({
   selector: 'app-ordem-compra',
@@ -13,6 +14,7 @@ import { CarrinhoService } from '../carrinho.service'
 export class OrdemCompraComponent implements OnInit {
 
   public idPedidoCompra: number
+  public itensCarrinho: ItemCarrinho[] = []
 
   public formulario: FormGroup = new FormGroup({
     'endereco': new FormControl(null, [ Validators.required, Validators.minLength(3), Validators.maxLength(120) ]),
@@ -27,7 +29,7 @@ export class OrdemCompraComponent implements OnInit {
     ) { }
 
   ngOnInit() {
-    console.log('Array de itens do carrinho: ', this.carrinhoService.exibirItens())
+    this.itensCarrinho = this.carrinhoService.exibirItens()
   }
 
   public confirmarCompra(): void {
@@ -38,16 +40,39 @@ export class OrdemCompraComponent implements OnInit {
       this.formulario.get('formaPagamento').markAsTouched()
     } else {
 
-      let pedido: Pedido = new Pedido(
-        this.formulario.value.endereco,
-        this.formulario.value.numero,
-        this.formulario.value.complemento,
-        this.formulario.value.formaPagamento)
+
+      if(this.carrinhoService.exibirItens().length === 0) {
+        alert('Você não selecionou nenhum item!')
       
-      this.ordemCompraService.efetivarCompra(pedido)
-        .subscribe((idPedido: number) => {
-          this.idPedidoCompra = idPedido
-        })
+      } else {
+
+        let pedido: Pedido = new Pedido(
+          this.formulario.value.endereco,
+          this.formulario.value.numero,
+          this.formulario.value.complemento,
+          this.formulario.value.formaPagamento,
+          this.carrinhoService.exibirItens()
+          )
+        
+        this.ordemCompraService.efetivarCompra(pedido)
+          .subscribe((idPedido: number) => {
+            this.idPedidoCompra = idPedido
+
+            this.carrinhoService.limparCarrinho()
+          })
+      }
     }
+  
   }
+
+
+  public adicionar(item: ItemCarrinho): void {
+    this.carrinhoService.adicionarQuantidade(item)
+  }
+
+
+  public diminuir(item: ItemCarrinho): void {
+    this.carrinhoService.diminuirQuantidade(item)
+  }
+
 }
